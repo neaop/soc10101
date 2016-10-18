@@ -1,0 +1,13 @@
+drop table if exists fittsliftlocations;
+create table fittsliftlocations as
+SELECT 
+liftdetails.collectionref,
+liftdetails.sequenceNo,
+fittscollectionpattern.patternRef,
+xCoord,
+yCoord,
+timeReplaced - timeLifted as liftDuration
+FROM schoolsv6.liftdetails, fittscollectionpattern
+where
+liftdetails.collectionref = fittscollectionpattern.collectionRef and
+liftdetails.sequenceNo = fittscollectionpattern.sequenceNo

@@ -1,0 +1,22 @@
+drop table if exists fittsSectorTimes;
+create table fittsSectorTimes as
+select
+collection.idCollection,
+fittscollectionpattern.sequenceNo,
+fittscollectionpattern.patternref,
+collection.agegroupref,
+collection.collectionYears,
+collection.collectionMonths,
+point1 - point0 as sector1,
+point2 - point1 as sector2,
+point3 - point2 as sector3,
+point4 - point3 as sector4,
+point5 - point4 as sector5,
+point6 - point5 as sector6,
+point7 - point6 as sector7,
+point8 - point7 as sector8
+from detailedtiming, fittscollectionpattern, collection
+where
+collection.idCollection = detailedtiming.collectionRef and
+fittscollectionpattern.collectionRef = detailedtiming.collectionRef and 
+fittscollectionpattern.sequenceNo = detailedtiming.sequenceNo

@@ -1,0 +1,16 @@
+drop table if exists fittslooplocations;
+create table fittslooplocations as
+SELECT 
+loopdetails.collectionref,
+loopdetails.sequenceNo,
+fittscollectionpattern.patternRef,
+cogX as xCoord,
+cogY as yCoord,
+loopInstance,
+loopCount,
+rangeX,
+rangeY
+FROM schoolsv6.loopdetails, fittscollectionpattern
+where
+loopdetails.collectionref = fittscollectionpattern.collectionRef and
+loopdetails.sequenceNo = fittscollectionpattern.sequenceNo

@@ -1,0 +1,11 @@
+drop table if exists fittssectorid
+CREATE TABLE `fittssectorid` (
+  `patternRef` int(11) NOT NULL,
+  `sectorNo` int(11) NOT NULL,
+  `patternX` int(11) DEFAULT NULL,
+  `patternY` int(11) DEFAULT NULL,
+  `FittsID` double DEFAULT NULL,
+  `lineDirection` int(11) DEFAULT NULL,
+  PRIMARY KEY (`patternRef`,`sectorNo`),
+  CONSTRAINT `toPattern` FOREIGN KEY (`patternRef`) REFERENCES `pattern` (`idPattern`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

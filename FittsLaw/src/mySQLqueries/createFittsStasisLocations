@@ -1,0 +1,13 @@
+drop table if exists fittsstasislocations;
+create table fittsstasislocations as
+SELECT 
+stasisdetails.collectionref,
+stasisdetails.sequenceNo,
+fittscollectionpattern.patternRef,
+xCoord,
+yCoord,
+stasisFinish - stasisStart as stasisDuration
+FROM schoolsv6.stasisdetails, fittscollectionpattern
+where
+stasisdetails.collectionref = fittscollectionpattern.collectionRef and
+stasisdetails.sequenceNo = fittscollectionpattern.sequenceNo

@@ -1,0 +1,14 @@
+drop table if exists fittsvalidsectors;
+CREATE TABLE `fittsvalidsectors` (
+  `patternRef` int(11) NOT NULL,
+  `sectorNo` int(11) NOT NULL,
+  `years` int(11) NOT NULL,
+  `months` int(11) NOT NULL,
+  `timeTaken` int(11) DEFAULT '0',
+  `collectionRef` int(11) NOT NULL,
+  `sequenceNo` int(11) NOT NULL,
+  PRIMARY KEY (`patternRef`,`sectorNo`),
+  KEY `fkcollectionref_idx` (`collectionRef`),
+  CONSTRAINT `fkcollectionref` FOREIGN KEY (`collectionRef`) REFERENCES `collection` (`idCollection`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fkpatternref` FOREIGN KEY (`patternRef`) REFERENCES `pattern` (`idPattern`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

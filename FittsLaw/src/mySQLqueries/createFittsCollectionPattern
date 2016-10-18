@@ -1,0 +1,7 @@
+drop table if exists fittsCollectionpattern;
+create table fittsCollectionpattern as
+SELECT * FROM schoolsv6.collectionpattern
+where 
+collectionref > 343 and 
+patternref <> 1 and 
+dominant = 'Y'

@@ -15,10 +15,13 @@ pattern_3_collection_data = get_collection_data(3)
 pattern_4_collection_data = get_collection_data(4)
 
 for collRow in pattern_3_collection_data:
+    bad_sectors = []
     for collection in pattern_3_event_sectors:
         for event in collection:
             if event[0] == collRow[0] and event[1] == collRow[1] and event[2] == collRow[2]:
-                collRow.append(event[4])
+                bad_sectors.append(event[4])
+    bad_sectors.sort()
+    collRow.append(set(bad_sectors))
 
 for val in pattern_3_collection_data:
     print(val)

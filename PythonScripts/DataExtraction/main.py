@@ -9,4 +9,5 @@ for table in tables:
 
 for val in event_sectors:
     print(val[0])
+    print(val[1])
     print(val[2])

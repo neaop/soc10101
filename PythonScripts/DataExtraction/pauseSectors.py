@@ -22,8 +22,7 @@ header = ['collectionref', 'sequenceNo', 'patternRef', 'xCoord', 'sectorID']
 pattern3Loops = [header]
 pattern4Loops = [header]
 
-curr.execute("SELECT collectionref, sequenceNo, patternRef, xCoord FROM fittslooplocations WHERE patternRef = 3")
-
+curr.execute("SELECT collectionref, sequenceNo, patternRef, xCoord FROM fittsstasislocations WHERE patternRef = 3")
 for row in curr:
     sectorCount = 1
     for sectorCoord in pattern3Sectors:
@@ -38,7 +37,7 @@ for val in pattern3Loops:
     print(val)
 print()
 
-curr.execute("SELECT collectionref, sequenceNo, patternRef, xCoord FROM fittslooplocations WHERE patternRef = 4")
+curr.execute("SELECT collectionref, sequenceNo, patternRef, xCoord FROM fittsstasislocations WHERE patternRef = 4")
 
 for row in curr:
     sectorCount = 1

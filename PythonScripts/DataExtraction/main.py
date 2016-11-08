@@ -2,7 +2,7 @@ from DataExtraction.event_sectors import *
 
 tables = ["fittslooplocations", "fittsstasislocations", "fittsliftlocations"]
 event_columns = ['collectionref', 'sequenceNo', 'patternRef', 'xCoord', 'sectorID']
-collection_columns = ['idCollection', 'sequenceNo', 'patternref', 'agegroupref']
+collection_columns = ['idCollection', 'sequenceNo', 'patternref', 'agegroupref', 'invalidSectors']
 pattern_3_event_sectors = []
 pattern_4_event_sectors = []
 
@@ -23,8 +23,8 @@ for collRow in pattern_3_collection_data:
     bad_sectors.sort()
     collRow.append(set(bad_sectors))
 
+print(collection_columns)
 for val in pattern_3_collection_data:
     print(val)
-
 
 close_connection()

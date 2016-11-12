@@ -1,5 +1,6 @@
 #  Class for extracting data formDatabase.
 import pymysql
+import math
 
 con = pymysql.connect(host='localhost', port=3306, user='root', passwd='admin', db='schoolsv6')
 curr = con.cursor()
@@ -46,6 +47,34 @@ def get_pattern_sectors(pattern_no):
     for row in curr:
         pattern_sectors.append(list(row))
     return pattern_sectors
+
+
+def get_valid_sectors(id_col: int, sequence: int, valid_sectors: list):
+    curr.execute("SELECT sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8 FROM fittssectortimes WHERE idCollection = %s AND sequenceNo = %s", (id_col, sequence))
+    sector_times =[]
+    count = 1
+    for row in curr:
+        for val in row:
+            if count in valid_sectors:
+                temp = [count, val]
+                sector_times.append(temp)
+            count += 1
+
+    return sector_times
+
+
+def get_sector_difficulty(pattern:int):
+    start = [0, 100]
+    sector_points = [start]
+    curr.execute("SELECT sectorNo, patternX, patternY FROM fittssectorid WHERE patternRef = %s ", pattern)
+    for row in curr:
+        sector_points.append([row[1], row[2]])
+
+    sector_difficulty = []
+    for i in range(0, len(sector_points)-1):
+        dist = math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
+        sector_difficulty.append(math.log2((2*dist) / 20))
+    return sector_difficulty
 
 
 def close_connection():

@@ -52,11 +52,19 @@ append_invalid_sector_ids(pattern_4_collection_data, pattern_4_event_sectors)
 # print(invalid_to_valid(pattern_3_collection_data[0][4], 3))
 
 print(collection_columns)
-print(pattern_4_collection_data[2])
-print(invalid_to_valid(pattern_4_collection_data[2][4], 3))
+print(pattern_4_collection_data[0])
+print(invalid_to_valid(pattern_4_collection_data[0][4], 3))
+
+d = pattern_4_collection_data[0][0]
+seq = pattern_4_collection_data[0][1]
+valid = invalid_to_valid(pattern_4_collection_data[0][4], 3)
+
+print(get_valid_sectors(d,seq,valid))
 
 # print(collection_columns)
 # for val in pattern_3_collection_data:
 #     print(val)
+
+print(get_sector_difficulty(4))
 
 close_connection()

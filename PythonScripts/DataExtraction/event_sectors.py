@@ -22,7 +22,6 @@ def get_event_sectors(event_table, pattern_no):
             #  Count up sectors till coordinates match.
             if row[3] > (sector[0] - tolerance):
                 sector_count += 1
-
         temp_row = list(row)
         temp_row.append(sector_count)
         event_sectors.append(temp_row)
@@ -31,12 +30,13 @@ def get_event_sectors(event_table, pattern_no):
 
 
 #  Returns all the collections from a particular pattern.
-def get_collection_data(pattern):
+def get_collection_data(pattern: int):
     collection_data = []
     curr.execute("SELECT idCollection, sequenceNo, patternref, agegroupref FROM fittssectortimes WHERE patternref = %s"
                  , pattern)
     for row in curr:
         collection_data.append(list(row))
+
     return collection_data
 
 
@@ -49,34 +49,41 @@ def get_pattern_sectors(pattern_no):
     return pattern_sectors
 
 
-def get_valid_sectors(id_col: int, sequence: int, valid_sectors: list):
-    curr.execute("SELECT sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8 FROM fittssectortimes WHERE idCollection = %s AND sequenceNo = %s", (id_col, sequence))
+#  Returns a list of the valid sector completion times
+def get_valid_sectors(collection_data: list):
+    curr.execute("SELECT sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8 FROM fittssectortimes WHERE idCollection = %s AND sequenceNo = %s", (collection_data[0], collection_data[1]))
     sector_times =[]
     count = 1
     for row in curr:
         for val in row:
-            if count in valid_sectors:
+            if count in collection_data[5]:
                 temp = [count, val]
                 sector_times.append(temp)
             count += 1
 
-    return sector_times
+        collection_data[5] = sector_times
 
 
-def get_sector_difficulty(pattern:int):
+#  Returns a list with the fitts's IDs for a particular pattern.
+def get_sector_difficulties(pattern: int):
     start = [0, 100]
     sector_points = [start]
+    sector_difficulties = []
     curr.execute("SELECT sectorNo, patternX, patternY FROM fittssectorid WHERE patternRef = %s ", pattern)
     for row in curr:
         sector_points.append([row[1], row[2]])
 
-    sector_difficulty = []
+    # for val in sector_points:
+    #     print(val)
+
     for i in range(0, len(sector_points)-1):
-        dist = math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
-        sector_difficulty.append(math.log2((2*dist) / 20))
-    return sector_difficulty
+        sector_distance = math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
+        sector_difficulties.append([i+1, math.log2((2*sector_distance) / 20)])
+
+    return sector_difficulties
 
 
+#  Closes the database connection.
 def close_connection():
     curr.close()
     con.close()

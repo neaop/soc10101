@@ -56,12 +56,12 @@ def get_valid_sectors(collection_data: list):
     count = 1
     for row in curr:
         for val in row:
-            if count in collection_data[5]:
+            if count in collection_data[4]:
                 temp = [count, val]
                 sector_times.append(temp)
             count += 1
 
-        collection_data[5] = sector_times
+        collection_data[4] = sector_times
 
 
 #  Returns a list with the fitts's IDs for a particular pattern.

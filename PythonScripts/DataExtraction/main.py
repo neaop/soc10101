@@ -7,17 +7,18 @@ def invalid_to_valid(collection_data: list):
     for i in range(1, sector_count):
         if i not in collection_data[4]:
             valid_sectors.append(i)
-    collection_data.append(valid_sectors)
+    collection_data[4] = valid_sectors
     return
 
 
 def append_fitts_ip(collection_data: list):
     fitts_ip = []
-    for val in collection_data[5]:
-        sector_id = pattern_4_sector_ID[val[0] - 1][1]
-        sector_time = val[1] / 1000
+    sector_difficulties = get_sector_difficulties(collection_data[2])
+    for valid_sector in collection_data[4]:
+        sector_difficulty = sector_difficulties[valid_sector[0] - 1][1]
+        sector_time = valid_sector[1] / 1000
 
-        fitts_ip.append([val[0], sector_id / sector_time])
+        fitts_ip.append([valid_sector[0], sector_difficulty / sector_time])
     collection_data.append(fitts_ip)
 
 
@@ -42,7 +43,7 @@ def append_invalid_sector_ids(pattern_collection, pattern_events):
 
 
 tables = ["fittslooplocations", "fittsstasislocations", "fittsliftlocations"]
-collection_columns = ['idCollection', 'sequenceNo', 'patternRef', 'ageGroupRef', 'invalidSectors', 'validSectors/times', 'sector/IP']
+collection_columns = ['idCollection', 'sequenceNo', 'patternRef', 'ageGroupRef', 'validSectors/times', 'sector/IP']
 pattern_3_event_sectors = []
 pattern_4_event_sectors = []
 
@@ -64,6 +65,12 @@ append_invalid_sector_ids(pattern_4_collection_data, pattern_4_event_sectors)
 print(collection_columns)
 
 for val in pattern_3_collection_data:
+    invalid_to_valid(val)
+    get_valid_sectors(val)
+    append_fitts_ip(val)
+    print(val)
+
+for val in pattern_4_collection_data:
     invalid_to_valid(val)
     get_valid_sectors(val)
     append_fitts_ip(val)

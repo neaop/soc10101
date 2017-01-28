@@ -76,4 +76,7 @@ for val in pattern_4_collection_data:
     append_fitts_ip(val)
     print(val)
 
+print(pattern_3_sector_ID)
+print(pattern_4_sector_ID)
+
 close_connection()

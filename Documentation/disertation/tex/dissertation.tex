@@ -1,0 +1,30 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{disseration_style}
+\begin{document}
+	\input{dissertation_title.tex}
+	\input{dissertation_declaration.tex}
+	\input{dissertation_data_protection.tex}
+	\input{dissertation_abstract.tex}
+
+	\tableofcontents 
+	\newpage
+	\listoftables
+	\newpage
+	\listoffigures
+		
+	\input{dissertation_acknowledgements.tex}
+	\input{dissertation_introduction.tex}
+	\input{dissertation_literature.tex}
+	\input{dissertation_method.tex}
+	\input{dissertation_results.tex}
+	\input{dissertation_conclusion.tex}
+
+	\bibliography{bibliography}
+	\bibliographystyle{plain}
+
+	\input{dissertation_appendix.tex}
+	
+	\nocite{MacKenzie1995}
+	
+\end{document}

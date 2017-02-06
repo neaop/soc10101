@@ -1,6 +1,6 @@
 \documentclass[12pt,a4paper]{article}
+\usepackage{dissertation_style}
 
-\usepackage{disseration_style}
 \begin{document}
 	\input{dissertation_title.tex}
 	\input{dissertation_declaration.tex}
@@ -12,7 +12,7 @@
 	\listoftables
 	\newpage
 	\listoffigures
-		
+
 	\input{dissertation_acknowledgements.tex}
 	\input{dissertation_introduction.tex}
 	\input{dissertation_literature.tex}
@@ -20,11 +20,10 @@
 	\input{dissertation_results.tex}
 	\input{dissertation_conclusion.tex}
 
+	\bibliographystyle{ieeetr}
 	\bibliography{bibliography}
-	\bibliographystyle{plain}
 
 	\input{dissertation_appendix.tex}
-	
-	\nocite{MacKenzie1995}
-	
+
+
 \end{document}

@@ -1,13 +1,15 @@
 import pymysql
+import math
 
 con = pymysql.connect(host='localhost', port=3306, user='candidwebuser', passwd='pw4candid', db='fittsdb')
 curr = con.cursor()
 
+tolerance_radius = 10
+
 
 def get_event_sectors(pattern_ref: int, event_table: str):
-    tolerance = 10
     event_sectors = []
-    pattern_sector_coords = get_pattern_coords(pattern_ref)
+    pattern_sector_coords = get_pattern_sectors(pattern_ref)
     query = ("SELECT collectionpattern.collectionRef, collectionpattern.sequenceNo, collectionpattern.patternRef, xCoord "
              "FROM {0} "
              "JOIN collectionpattern "
@@ -21,7 +23,7 @@ def get_event_sectors(pattern_ref: int, event_table: str):
         sector_count = 1
         for sector in pattern_sector_coords:
             #  Count up sectors till coordinates match.
-            if row[3] > (sector[0] - tolerance):
+            if row[3] > (sector[0] - tolerance_radius):
                 sector_count += 1
         temp_row = list(row)
         temp_row.append(sector_count)
@@ -50,12 +52,14 @@ def get_collection_data(pattern_ref: int, dominant_hand: str, dyslexia_status: s
     return collection_data
 
 
-def get_pattern_coords(pattern_ref: int):
-    curr.execute("SELECT xValue FROM patternpoints WHERE patternRef = {0}".format(pattern_ref))
-    pattern_sector_coords = []
+def get_pattern_sectors(pattern_ref: int):
+    curr.execute("SELECT patternX "
+                 "FROM fittssectorid "
+                 "WHERE patternRef = {0}".format(pattern_ref))
+    pattern_sectors = []
     for row in curr:
-        pattern_sector_coords.append(list(row))
-    return pattern_sector_coords
+        pattern_sectors.append(list(row))
+    return pattern_sectors
 
 
 def get_valid_sector_times(collection_data: list):
@@ -122,6 +126,38 @@ def invalid_to_valid(collection_data: list):
         if i not in collection_data[6]:
             valid_sectors.append(i)
     collection_data.append(valid_sectors)
+    return
+
+
+def get_sector_difficulties(pattern_ref: int):
+    start = [0, 100]
+    sector_points = [start]
+    sector_difficulties = []
+    curr.execute("SELECT sectorNo, patternX, patternY "
+                 "FROM fittssectorid "
+                 "WHERE patternRef = {0}".format(pattern_ref))
+
+    for row in curr:
+        sector_points.append([row[1], row[2]])
+
+    for i in range(0, len(sector_points)-1):
+        sector_distance = \
+            math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
+
+        sector_difficulties.append([i+1, math.log2((2 * sector_distance) / (2 * tolerance_radius))])
+
+    return sector_difficulties
+
+
+def calculate_ip(collection_data: list):
+    sector_ip = []
+    sector_ids = get_sector_difficulties(collection_data[3])
+    for valid_sector in collection_data[8]:
+        sec_id = sector_ids[valid_sector[0]-1][1]
+        sector_time = valid_sector[1] / 1000
+        sector_ip.append([valid_sector[0], sec_id / sector_time])
+
+    collection_data.append(sector_ip)
     return
 
 

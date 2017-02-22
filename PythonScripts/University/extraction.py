@@ -1,82 +1,94 @@
 import csv
-from University.event_extraction import *
+from University.data_extraction import *
 
 
-def write_to_csv(file_name:str, collection:list):
+def write_to_csv(file_name: str, collection: list):
     with open(file_name, 'w', newline='\n') as csvFile:
-        cWriter = csv.writer(csvFile)
-        # cWriter.writerow([1, 2, 3, 4, 5, 6, 7])
-        for row in collection:
-            number_list = [''] * 8
-            for val in row[6]:
+        c_writer = csv.writer(csvFile)
+        csv_title = []
+        sector_no = 7
+        if collection[0][3] == 4:
+            sector_no = 8
+        for i in range(sector_no):
+            csv_title.append(i)
+        csv_title.extend(["TotalTime", "AverageTime"])
+        c_writer.writerow(csv_title)
+        for per in collection:
+            number_list = [''] * sector_no
+            for val in per[8]:
                 number_list[val[0] - 1] = val[1]
-            cWriter.writerow(number_list)
+            number_list.append(per[9])
+            number_list.append(int(per[9])/int(sector_no))
+            c_writer.writerow(number_list)
+
     csvFile.close()
+
     return
 
 
-def append_invalid_sector_ids(pattern_collection, pattern_events):
-    for collRow in pattern_collection:
-        bad_sectors = []
-        #  For each type of event.
-        for collection in pattern_events:
-            #  For each event.
-            for event in collection:
-                #  If event occurred in the current collection.
-                if event[0] == collRow[1] and event[1] == collRow[2] and event[2] == collRow[3]:
-                    #  Add event sector location to list.
-                    bad_sectors.append(event[4])
-        # Sort list of invalid sectors.
-        bad_sectors = set(bad_sectors)
-        bad_sectors = list(bad_sectors)
-        bad_sectors.sort()
-        #  Append invalid sectors to current collection.
-        collRow.append(bad_sectors)
-    return
+def main():
+    event_tables = ["fittsliftlocations", "fittslooplocations", "fittsstasislocations"]
+    list_headers = ["IndividualID", "CollectionRef", "SequenceRef", "PatternRef", "DominantHand", "DyslexiaStatus"]
 
+    pattern_3_event_sectors, pattern_4_event_sectors = [], []
 
-def invalid_to_valid(collection_data: list):
-    sector_count = 5 + collection_data[3]
-    valid_sectors = []
-    for i in range(1, sector_count):
-        if i not in collection_data[6]:
-            valid_sectors.append(i)
-    collection_data[6] = valid_sectors
-    return
+    for table in event_tables:
+        pattern_3_event_sectors.append(get_event_sectors(3, table))
+        pattern_4_event_sectors.append(get_event_sectors(4, table))
 
+    pattern_3_d_dom = get_collection_data(3, 'Y', 'D')
+    pattern_3_d_non = get_collection_data(3, 'N', 'D')
+    pattern_4_d_dom = get_collection_data(4, 'Y', 'D')
+    pattern_4_d_non = get_collection_data(4, 'N', 'D')
 
-event_tables = ["liftdetails", "stasisdetails"]
-list_headers = ["IndividualID", "CollectionRef", "SequenceRef", "PatternRef", "DominantHand", "DyslexiaStatus", "Sectors"]
+    pattern_3_nd_dom = get_collection_data(3, 'Y', 'ND')
+    pattern_3_nd_non = get_collection_data(3, 'N', 'ND')
+    pattern_4_nd_dom = get_collection_data(4, 'Y', 'ND')
+    pattern_4_nd_non = get_collection_data(4, 'N', 'ND')
 
-pattern_3_event_sectors, pattern_4_event_sectors = [], []
+    pattern_3 = [pattern_3_d_dom, pattern_3_d_non, pattern_3_nd_dom, pattern_3_nd_non]
+    pattern_4 = [pattern_4_d_dom, pattern_4_d_non, pattern_4_nd_dom, pattern_4_nd_non]
 
-for table in event_tables:
-    pattern_3_event_sectors.append(get_event_sectors(3, table))
-    pattern_4_event_sectors.append(get_event_sectors(4, table))
+    list_headers.append("invalidSectors")
 
-pattern_3_d_dom = get_collection_data(3, 'Y', 'D')
-pattern_3_d_non = get_collection_data(3, 'N', 'D')
-pattern_4_d_dom = get_collection_data(4, 'Y', 'D')
-pattern_4_d_non = get_collection_data(4, 'N', 'D')
+    for coll in pattern_3:
+        get_invalid_sector_ids(coll, pattern_3_event_sectors)
+    for coll in pattern_4:
+        get_invalid_sector_ids(coll, pattern_4_event_sectors)
 
-pattern_3_nd_dom = get_collection_data(3, 'Y', 'ND')
-pattern_3_nd_non = get_collection_data(3, 'N', 'ND')
-pattern_4_nd_dom = get_collection_data(4, 'Y', 'ND')
-pattern_4_nd_non = get_collection_data(4, 'N', 'ND')
+    # get_invalid_sector_ids(pattern_4_d_dom, pattern_4_event_sectors)
+    # get_invalid_sector_ids(pattern_4_nd_dom, pattern_4_event_sectors)
 
-append_invalid_sector_ids(pattern_4_d_dom, pattern_3_event_sectors)
-append_invalid_sector_ids(pattern_4_nd_dom, pattern_3_event_sectors)
+    list_headers.append("validSectors")
+    list_headers.append("validSectorTimes")
+    list_headers.append("totalTime")
 
+    for coll in pattern_3:
+        for row in coll:
+            invalid_to_valid(row)
+            get_valid_sector_times(row)
+            get_total_time(row)
 
-for row in pattern_4_d_dom:
-    invalid_to_valid(row)
-    get_valid_sectors(row)
+    for coll in pattern_4:
+        for row in coll:
+            invalid_to_valid(row)
+            get_valid_sector_times(row)
+            get_total_time(row)
 
-for row in pattern_4_nd_dom:
-    invalid_to_valid(row)
-    get_valid_sectors(row)
+    # for row in pattern_4_d_dom:
+    #     invalid_to_valid(row)
+    #     get_valid_sector_times(row)
+    #     get_total_time(row)
+    #
+    # for row in pattern_4_nd_dom:
+    #     invalid_to_valid(row)
+    #     get_valid_sector_times(row)
+    #     get_total_time(row)
 
-write_to_csv("pattern_4_d_dom.csv", pattern_4_d_dom)
-write_to_csv("pattern_4_nd_dom.csv", pattern_4_nd_dom)
+    write_to_csv("pattern_3_d_dom.csv", pattern_3_d_dom)
+    write_to_csv("pattern_3_nd_dom.csv", pattern_3_nd_dom)
 
-close_connection()
+    close_connection()
+
+if __name__ == '__main__':
+    main()

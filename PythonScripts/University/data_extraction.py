@@ -8,13 +8,12 @@ def get_event_sectors(pattern_ref: int, event_table: str):
     tolerance = 10
     event_sectors = []
     pattern_sector_coords = get_pattern_coords(pattern_ref)
-    column_name = "Xcoord" if event_table != "loopdetails" else "cogX"
-    query = ("SELECT collectionpattern.collectionRef, collectionpattern.sequenceNo, collectionpattern.patternRef,  {0} "
-             "FROM {1} "
+    query = ("SELECT collectionpattern.collectionRef, collectionpattern.sequenceNo, collectionpattern.patternRef, xCoord "
+             "FROM {0} "
              "JOIN collectionpattern "
-             "ON {1}.collectionRef = collectionpattern.collectionRef "
-             "AND {1}.sequenceNo = collectionpattern.sequenceNo "
-             "WHERE collectionpattern.patternRef = {2}".format(column_name, event_table, pattern_ref))
+             "ON {0}.collectionRef = collectionpattern.collectionRef "
+             "AND {0}.sequenceNo = collectionpattern.sequenceNo "
+             "WHERE collectionpattern.patternRef = {1}".format(event_table, pattern_ref))
 
     curr.execute(query)
 
@@ -22,7 +21,7 @@ def get_event_sectors(pattern_ref: int, event_table: str):
         sector_count = 1
         for sector in pattern_sector_coords:
             #  Count up sectors till coordinates match.
-            if row[2] > (sector[0] - tolerance):
+            if row[3] > (sector[0] - tolerance):
                 sector_count += 1
         temp_row = list(row)
         temp_row.append(sector_count)
@@ -59,7 +58,7 @@ def get_pattern_coords(pattern_ref: int):
     return pattern_sector_coords
 
 
-def get_valid_sectors(collection_data: list):
+def get_valid_sector_times(collection_data: list):
     curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
                  "FROM detailedtiming  "
                  "JOIN collectionpattern "
@@ -71,13 +70,59 @@ def get_valid_sectors(collection_data: list):
     count = 1
     for row in curr:
         for val in row[1:]:
-            if count in collection_data[6]:
+            if count in collection_data[7]:
                 prev = row[count - 1]
                 temp = [count, val-prev]
                 sector_times.append(temp)
             count += 1
 
-        collection_data[6] = sector_times
+        collection_data.append(sector_times)
+
+
+def get_total_time(collection_data: list):
+    final_point = 'point8' if collection_data[3] == 4 else 'point7'
+
+    curr.execute("SELECT startTime, {0} "
+                 "FROM detailedtiming "
+                 "JOIN collectionpattern "
+                 "ON detailedtiming.collectionRef = collectionpattern.collectionRef "
+                 "AND detailedtiming.sequenceNo = collectionpattern.sequenceNo "
+                 "WHERE collectionpattern.collectionRef = {1} "
+                 "AND collectionpattern.sequenceNo = {2}".format(final_point, collection_data[1], collection_data[2]))
+
+    for row in curr:
+        total_time = row[1] - row[0]
+        collection_data.append(total_time)
+
+
+def get_invalid_sector_ids(pattern_collection: list, pattern_events: list):
+    for collRow in pattern_collection:
+        bad_sectors = []
+        #  For each type of event.
+        for collection in pattern_events:
+            #  For each event.
+            for event in collection:
+                #  If event occurred in the current collection.
+                if event[0] == collRow[1] and event[1] == collRow[2] and event[2] == collRow[3]:
+                    #  Add event sector location to list.
+                    bad_sectors.append(event[4])
+        # Sort list of invalid sectors.
+        bad_sectors = set(bad_sectors)
+        bad_sectors = list(bad_sectors)
+        bad_sectors.sort()
+        #  Append invalid sectors to current collection.
+        collRow.append(bad_sectors)
+    return
+
+
+def invalid_to_valid(collection_data: list):
+    sector_count = 5 + collection_data[3]
+    valid_sectors = []
+    for i in range(1, sector_count):
+        if i not in collection_data[6]:
+            valid_sectors.append(i)
+    collection_data.append(valid_sectors)
+    return
 
 
 def close_connection():

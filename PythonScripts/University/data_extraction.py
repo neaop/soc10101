@@ -10,12 +10,12 @@ tolerance_radius = 10
 def get_event_sectors(pattern_ref: int, event_table: str):
     event_sectors = []
     pattern_sector_coords = get_pattern_sectors(pattern_ref)
-    query = ("SELECT collectionpattern.collectionRef, collectionpattern.sequenceNo, collectionpattern.patternRef, xCoord "
+    query = ("SELECT cp.collectionRef, cp.sequenceNo, cp.patternRef, {0}.xCoord "
              "FROM {0} "
-             "JOIN collectionpattern "
-             "ON {0}.collectionRef = collectionpattern.collectionRef "
-             "AND {0}.sequenceNo = collectionpattern.sequenceNo "
-             "WHERE collectionpattern.patternRef = {1}".format(event_table, pattern_ref))
+             "JOIN collectionpattern cp "
+             "ON {0}.collectionRef = cp.collectionRef "
+             "AND {0}.sequenceNo = cp.sequenceNo "
+             "WHERE cp.patternRef = {1}".format(event_table, pattern_ref))
 
     curr.execute(query)
 
@@ -64,12 +64,12 @@ def get_pattern_sectors(pattern_ref: int):
 
 def get_valid_sector_times(collection_data: list):
     curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
-                 "FROM detailedtiming  "
-                 "JOIN collectionpattern "
-                 "ON detailedtiming.collectionRef = collectionpattern.collectionRef "
-                 "AND detailedtiming.sequenceNo = collectionpattern.sequenceNo "
-                 "WHERE collectionpattern.collectionRef = {0} "
-                 "AND collectionpattern.sequenceNo = {1}".format(collection_data[1], collection_data[2]))
+                 "FROM detailedtiming dt "
+                 "JOIN collectionpattern cp "
+                 "ON dt.collectionRef = cp.collectionRef "
+                 "AND dt.sequenceNo = cp.sequenceNo "
+                 "WHERE cp.collectionRef = {0} "
+                 "AND cp.sequenceNo = {1}".format(collection_data[1], collection_data[2]))
     sector_times = []
     count = 1
     for row in curr:
@@ -87,35 +87,37 @@ def get_total_time(collection_data: list):
     final_point = 'point8' if collection_data[3] == 4 else 'point7'
 
     curr.execute("SELECT startTime, {0} "
-                 "FROM detailedtiming "
-                 "JOIN collectionpattern "
-                 "ON detailedtiming.collectionRef = collectionpattern.collectionRef "
-                 "AND detailedtiming.sequenceNo = collectionpattern.sequenceNo "
-                 "WHERE collectionpattern.collectionRef = {1} "
-                 "AND collectionpattern.sequenceNo = {2}".format(final_point, collection_data[1], collection_data[2]))
+                 "FROM detailedtiming dt "
+                 "JOIN collectionpattern cp "
+                 "ON dt.collectionRef = cp.collectionRef "
+                 "AND dt.sequenceNo = cp.sequenceNo "
+                 "WHERE cp.collectionRef = {1} "
+                 "AND cp.sequenceNo = {2}".format(final_point, collection_data[1], collection_data[2]))
 
     for row in curr:
         total_time = row[1] - row[0]
         collection_data.append(total_time)
 
 
-def get_invalid_sector_ids(pattern_collection: list, pattern_events: list):
+def get_invalid_sector_numbers(pattern_collection: list, pattern_events: list):
     for collRow in pattern_collection:
-        bad_sectors = []
+        invalid_sectors = []
         #  For each type of event.
-        for collection in pattern_events:
+        for event_type in pattern_events:
             #  For each event.
-            for event in collection:
+            for event in event_type:
                 #  If event occurred in the current collection.
                 if event[0] == collRow[1] and event[1] == collRow[2] and event[2] == collRow[3]:
                     #  Add event sector location to list.
-                    bad_sectors.append(event[4])
+                    invalid_sectors.append(event[4])
         # Sort list of invalid sectors.
-        bad_sectors = set(bad_sectors)
-        bad_sectors = list(bad_sectors)
-        bad_sectors.sort()
+        error_count = len(invalid_sectors)
+        invalid_sectors = set(invalid_sectors)
+        invalid_sectors = list(invalid_sectors)
+        invalid_sectors.sort()
         #  Append invalid sectors to current collection.
-        collRow.append(bad_sectors)
+        collRow.append(invalid_sectors)
+        # collRow.append(error_count)
     return
 
 

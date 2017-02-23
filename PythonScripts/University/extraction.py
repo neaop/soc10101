@@ -1,9 +1,14 @@
 import csv
+import os
 from University.data_extraction import *
 
 
 def write_to_csv(file_name: str, collection: list):
-    with open(file_name, 'w', newline='\n') as csvFile:
+    dir_path = "..\data"
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+
+    with open(dir_path + '\\' + file_name, 'w', newline='\n') as csvFile:
         c_writer = csv.writer(csvFile)
         csv_title = []
         sector_no = 7
@@ -29,7 +34,7 @@ def write_to_csv(file_name: str, collection: list):
 
             time_list.extend(id_list)
             time_list.append(per[10])
-            time_list.append(int(per[10]) / int(sector_no))
+            time_list.append((int(per[10]) / int(sector_no)))
             c_writer.writerow(time_list)
 
     csvFile.close()
@@ -63,17 +68,16 @@ def main():
     list_headers.append("invalidSectors")
 
     for coll in pattern_3:
-        get_invalid_sector_ids(coll, pattern_3_event_sectors)
+        get_invalid_sector_numbers(coll, pattern_3_event_sectors)
     for coll in pattern_4:
-        get_invalid_sector_ids(coll, pattern_4_event_sectors)
-
-    # get_invalid_sector_ids(pattern_4_d_dom, pattern_4_event_sectors)
-    # get_invalid_sector_ids(pattern_4_nd_dom, pattern_4_event_sectors)
+        get_invalid_sector_numbers(coll, pattern_4_event_sectors)
 
     list_headers.append("validSectors")
     list_headers.append("validSectorTimes")
     list_headers.append("sectorIP")
     list_headers.append("totalTime")
+
+    print(list_headers)
 
     for coll in pattern_3:
         for row in coll:
@@ -81,15 +85,17 @@ def main():
             get_valid_sector_times(row)
             calculate_ip(row)
             get_total_time(row)
+            print(row)
 
     for coll in pattern_4:
         for row in coll:
             invalid_to_valid(row)
             get_valid_sector_times(row)
             get_total_time(row)
+            get_total_time(row)
 
-    write_to_csv("pattern_3_d_dom.csv", pattern_3_d_dom)
-    write_to_csv("pattern_3_nd_dom.csv", pattern_3_nd_dom)
+    # write_to_csv("pattern_3_d_dom.csv", pattern_3_d_dom)
+    # write_to_csv("pattern_3_nd_dom.csv", pattern_3_nd_dom)
 
     close_connection()
 

@@ -7,7 +7,7 @@ class Collection:
     def __init__(self, collection_ref: int, sequence_ref: int, pattern_ref: int):
         self.collection_ref = collection_ref
         self.sequence_ref = sequence_ref
-        self.pattern_ref = pattern_ref
+        self    .pattern_ref = pattern_ref
 
     def to_string(self):
         string = ("{0}, {1}, {2}".format(self.collection_ref, self.sequence_ref, self.pattern_ref))
@@ -55,15 +55,17 @@ class IndividualCollection(Collection):
         return string
 
     def append_event(self, event: EventCollection):
-        if event.event_type == EventType.LIFT:
-            self.lift_sectors.append(event.sector)
-        elif event.event_type == EventType.LOOP:
-            self.loop_sectors.append(event.sector)
-        elif event.event_type == EventType.STOP:
-            self.stasis_sectors.append(event.sector)
-        return
+        if event.collection_ref == self.collection_ref and event.pattern_ref == self.pattern_ref \
+                and event.sequence_ref == self.sequence_ref:
+
+            if event.event_type == EventType.LIFT:
+                self.lift_sectors.append(event)
+            elif event.event_type == EventType.LOOP:
+                self.loop_sectors.append(event)
+            elif event.event_type == EventType.STOP:
+                self.stasis_sectors.append(event)
+            return
 
     def get_error_count(self):
-        if self.error_count == -1:
-            self.error_count = len(self.lift_sectors) + len(self.loop_sectors) + len(self.stasis_sectors)
+        self.error_count = len(self.lift_sectors) + len(self.loop_sectors) + len(self.stasis_sectors)
         return self.error_count

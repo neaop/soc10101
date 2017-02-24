@@ -1,5 +1,6 @@
 import pymysql
 import math
+from University.collection import IndividualCollection, EventType
 
 con = pymysql.connect(host='localhost', port=3306, user='candidwebuser', passwd='pw4candid', db='fittsdb')
 curr = con.cursor()
@@ -118,6 +119,16 @@ def get_invalid_sector_numbers(pattern_collection: list, pattern_events: list):
         #  Append invalid sectors to current collection.
         collRow.append(invalid_sectors)
         # collRow.append(error_count)
+    return
+
+
+def obj_get_invalid_sectors(collection_list: list, event_list: list, event_type: EventType):
+    for collection in collection_list:
+        for event in event_list:
+            if event[0] == collection.collection_ref \
+                and event[1] == collection.sequence_ref \
+                    and event[2] == collection.pattern_ref:
+                collection.append_event(event, event_type)
     return
 
 

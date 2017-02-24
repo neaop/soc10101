@@ -52,6 +52,10 @@ def main():
         pattern_3_event_sectors.append(get_event_sectors(3, table))
         pattern_4_event_sectors.append(get_event_sectors(4, table))
 
+    for coll in pattern_3_event_sectors:
+        for row in coll:
+            print(row)
+
     pattern_3_d_dom = get_collection_data(3, 'Y', 'D')
     pattern_3_d_non = get_collection_data(3, 'N', 'D')
     pattern_4_d_dom = get_collection_data(4, 'Y', 'D')
@@ -77,7 +81,7 @@ def main():
     list_headers.append("sectorIP")
     list_headers.append("totalTime")
 
-    print(list_headers)
+    # print(list_headers)
 
     for coll in pattern_3:
         for row in coll:
@@ -85,7 +89,7 @@ def main():
             get_valid_sector_times(row)
             calculate_ip(row)
             get_total_time(row)
-            print(row)
+            # print(row)
 
     for coll in pattern_4:
         for row in coll:

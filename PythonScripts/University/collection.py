@@ -7,9 +7,9 @@ class Collection:
     def __init__(self, collection_ref: int, sequence_ref: int, pattern_ref: int):
         self.collection_ref = collection_ref
         self.sequence_ref = sequence_ref
-        self    .pattern_ref = pattern_ref
+        self.pattern_ref = pattern_ref
 
-    def to_string(self):
+    def __str__(self):
         string = ("{0}, {1}, {2}".format(self.collection_ref, self.sequence_ref, self.pattern_ref))
         return string
 
@@ -21,15 +21,13 @@ class EventType(Enum):
 
 
 class EventCollection(Collection):
-
     def __init__(self, collection_ref: int, sequence_ref: int, pattern_ref: int, event_type: EventType, sector: int):
         Collection.__init__(self, collection_ref, sequence_ref, pattern_ref)
         self.event_type = event_type
         self.sector = sector
 
-    def to_string(self):
-        string = Collection.to_string(self)
-        string + (", {0}, {1}".format(self.event_type.name, self.sector))
+    def __str__(self):
+        string = ("{0}, {1}, {2}".format(Collection.__str__(self), self.event_type.name, self.sector))
         return string
 
 
@@ -42,30 +40,32 @@ class IndividualCollection(Collection):
         self.individual_id = individual_id
         self.dominant_hand = dominant_hand
         self.dyslexia_status = dyslexia_status
-        self.lift_sectors = []
-        self.loop_sectors = []
-        self.stasis_sectors = []
+        self.events = []
         self.sector_times = []
+        self.invalid_sectors = []
         self.error_count = -1
 
-    def to_string(self):
-        string = ("{0}, ".format(self.individual_id))
-        string += Collection.to_string(self)
-        string += (", {0}, {1}".format(self.dominant_hand, self.dyslexia_status))
+    def __str__(self):
+        string = ("{0}, {1}, {2}, {3} ".format(self.individual_id, Collection.__str__(self), self.dominant_hand,
+                                               self.dyslexia_status))
         return string
 
-    def append_event(self, event: EventCollection):
-        if event.collection_ref == self.collection_ref and event.pattern_ref == self.pattern_ref \
-                and event.sequence_ref == self.sequence_ref:
-
-            if event.event_type == EventType.LIFT:
-                self.lift_sectors.append(event)
-            elif event.event_type == EventType.LOOP:
-                self.loop_sectors.append(event)
-            elif event.event_type == EventType.STOP:
-                self.stasis_sectors.append(event)
+    def add_event(self, event: EventCollection):
+        if event.collection_ref == self.collection_ref and event.pattern_ref == self.pattern_ref and event.sequence_ref == self.sequence_ref:
+            self.events.append(event)
             return
 
+    def get_invalid_sectors(self):
+            invalid = []
+            for event in self.events:
+                invalid.append(event.sector)
+
+            invalid = set(invalid)
+            invalid = list(invalid)
+            invalid.sort()
+            self.invalid_sectors = invalid
+            return self.invalid_sectors
+
     def get_error_count(self):
-        self.error_count = len(self.lift_sectors) + len(self.loop_sectors) + len(self.stasis_sectors)
+        self.error_count = len(self.events)
         return self.error_count

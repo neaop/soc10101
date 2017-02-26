@@ -42,8 +42,10 @@ class IndividualCollection(Collection):
         self.dyslexia_status = dyslexia_status
         self.events = []
         self.sector_times = []
+        self.valid_sectors = []
         self.invalid_sectors = []
         self.error_count = -1
+        self.number_of_sectors = 7 if pattern_ref == 3 else 8
 
     def __str__(self):
         string = ("{0}, {1}, {2}, {3} ".format(self.individual_id, Collection.__str__(self), self.dominant_hand,
@@ -56,15 +58,25 @@ class IndividualCollection(Collection):
             return
 
     def get_invalid_sectors(self):
-            invalid = []
-            for event in self.events:
-                invalid.append(event.sector)
+        invalid = []
+        for event in self.events:
+            invalid.append(event.sector)
 
-            invalid = set(invalid)
-            invalid = list(invalid)
-            invalid.sort()
-            self.invalid_sectors = invalid
-            return self.invalid_sectors
+        invalid = set(invalid)
+        invalid = list(invalid)
+        invalid.sort()
+        self.invalid_sectors = invalid
+        return self.invalid_sectors
+
+    def get_valid_sectors(self):
+        valid = []
+        for i in range(1, self.number_of_sectors + 1):
+            if i in self.invalid_sectors:
+                pass
+            else:
+                valid.append(i)
+        self.valid_sectors = valid
+        return self.valid_sectors
 
     def get_error_count(self):
         self.error_count = len(self.events)

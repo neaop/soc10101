@@ -67,3 +67,24 @@ def add_events_to_collections(collection_list: list, event_list: list):
             for event in event_type:
                 col.add_event(event)
     return
+
+
+def get_sector_times(collection_data: IndividualCollection):
+    curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
+                 "FROM detailedtiming dt "
+                 "JOIN collectionpattern cp "
+                 "ON dt.collectionRef = cp.collectionRef "
+                 "AND dt.sequenceNo = cp.sequenceNo "
+                 "WHERE cp.collectionRef = {0} "
+                 "AND cp.sequenceNo = {1}".format(collection_data.collection_ref, collection_data.sequence_ref))
+    sector_times = []
+    count = 1
+    for row in curr:
+        backwards = row[::-1]
+        for i in range(8):
+            if backwards[i] is None:
+                pass
+            else:
+                temp = backwards[i] - backwards[i+1]
+                sector_times.append(temp)
+    collection_data.sector_times = sector_times[::-1]

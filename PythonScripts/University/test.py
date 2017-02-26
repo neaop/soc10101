@@ -27,7 +27,16 @@ for col in pattern_3_data:
 for col in pattern_4_data:
     add_events_to_collections(col, pattern_4_events)
 
-for x in pat_3_dom_d:
+for x in pat_4_dom_d:
         print(x)
+        print(x.    number_of_sectors)
         print(x.get_invalid_sectors())
         print(x.get_error_count())
+        print(x.get_valid_sectors())
+        get_sector_times(x)
+        print(x.sector_times)
+        print("\n")
+# print(pat_3_dom_d[0])
+# print(pat_3_dom_d[0].get_invalid_sectors())
+# print(pat_3_dom_d[0].get_valid_sectors())
+

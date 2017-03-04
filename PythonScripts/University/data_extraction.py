@@ -1,6 +1,6 @@
 import pymysql
 import math
-from University.collection import IndividualCollection, EventType
+from University.collection import SequenceCollection, EventType
 
 con = pymysql.connect(host='localhost', port=3306, user='candidwebuser', passwd='pw4candid', db='fittsdb')
 curr = con.cursor()
@@ -77,7 +77,7 @@ def get_valid_sector_times(collection_data: list):
         for val in row[1:]:
             if count in collection_data[7]:
                 prev = row[count - 1]
-                temp = [count, val-prev]
+                temp = [count, val - prev]
                 sector_times.append(temp)
             count += 1
 
@@ -126,7 +126,7 @@ def obj_get_invalid_sectors(collection_list: list, event_list: list, event_type:
     for collection in collection_list:
         for event in event_list:
             if event[0] == collection.collection_ref \
-                and event[1] == collection.sequence_ref \
+                    and event[1] == collection.sequence_ref \
                     and event[2] == collection.pattern_ref:
                 collection.append_event(event, event_type)
     return
@@ -153,11 +153,11 @@ def get_sector_difficulties(pattern_ref: int):
     for row in curr:
         sector_points.append([row[1], row[2]])
 
-    for i in range(0, len(sector_points)-1):
+    for i in range(0, len(sector_points) - 1):
         sector_distance = \
-            math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
+            math.hypot(sector_points[i + 1][0] - sector_points[i][0], sector_points[i + 1][1] - sector_points[i][1])
 
-        sector_difficulties.append([i+1, math.log2((2 * sector_distance) / (2 * tolerance_radius))])
+        sector_difficulties.append([i + 1, math.log2((2 * sector_distance) / (2 * tolerance_radius))])
 
     return sector_difficulties
 
@@ -166,7 +166,7 @@ def calculate_ip(collection_data: list):
     sector_ip = []
     sector_ids = get_sector_difficulties(collection_data[3])
     for valid_sector in collection_data[8]:
-        sec_id = sector_ids[valid_sector[0]-1][1]
+        sec_id = sector_ids[valid_sector[0] - 1][1]
         sector_time = valid_sector[1] / 1000
         sector_ip.append([valid_sector[0], sec_id / sector_time])
 

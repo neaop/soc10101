@@ -31,7 +31,7 @@ class EventCollection(Collection):
         return string
 
 
-class IndividualCollection(Collection):
+class SequenceCollection(Collection):
     """Object to hold collection data"""
 
     def __init__(self, individual_id: int, collection_ref: int, sequence_ref: int, pattern_ref: int, dominant_hand: str,
@@ -42,6 +42,10 @@ class IndividualCollection(Collection):
         self.dyslexia_status = dyslexia_status
         self.events = []
         self.sector_times = []
+        self.total_time = -1
+        self.total_sad = -1
+        self.sector_ips = []
+        self.average_ip = -1
         self.valid_sectors = []
         self.invalid_sectors = []
         self.error_count = -1
@@ -66,7 +70,8 @@ class IndividualCollection(Collection):
         invalid = list(invalid)
         invalid.sort()
         self.invalid_sectors = invalid
-        return self.invalid_sectors
+        self.error_count = len(self.events)
+        return
 
     def get_valid_sectors(self):
         valid = []
@@ -76,8 +81,14 @@ class IndividualCollection(Collection):
             else:
                 valid.append(i)
         self.valid_sectors = valid
-        return self.valid_sectors
+        return
 
     def get_error_count(self):
         self.error_count = len(self.events)
         return self.error_count
+
+    def calculate_sector_ips(self, sector_ids: list):
+        for i in range(self.number_of_sectors):
+            self.sector_ips.append(sector_ids[i] / (self.sector_times[i] / 1000))
+        self.average_ip = sum(self.sector_ips) / len(self.sector_ips)
+        return

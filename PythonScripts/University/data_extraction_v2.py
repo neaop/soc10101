@@ -57,7 +57,7 @@ def get_collection_data(pattern_ref: int, dominant_hand: str, dyslexia_status: s
                  "AND dominant = '{1}' "
                  "AND status = '{2}' ".format(pattern_ref, dominant_hand, dyslexia_status))
     for row in curr:
-        collection_data.append(IndividualCollection(row[0], row[1], row[2], row[3], row[4], row[5]))
+        collection_data.append(SequenceCollection(row[0], row[1], row[2], row[3], row[4], row[5]))
     return collection_data
 
 
@@ -69,7 +69,7 @@ def add_events_to_collections(collection_list: list, event_list: list):
     return
 
 
-def get_sector_times(collection_data: IndividualCollection):
+def get_sector_times(collection_data: SequenceCollection):
     curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
                  "FROM detailedtiming dt "
                  "JOIN collectionpattern cp "
@@ -78,13 +78,43 @@ def get_sector_times(collection_data: IndividualCollection):
                  "WHERE cp.collectionRef = {0} "
                  "AND cp.sequenceNo = {1}".format(collection_data.collection_ref, collection_data.sequence_ref))
     sector_times = []
-    count = 1
     for row in curr:
         backwards = row[::-1]
         for i in range(8):
             if backwards[i] is None:
                 pass
             else:
-                temp = backwards[i] - backwards[i+1]
+                temp = backwards[i] - backwards[i + 1]
                 sector_times.append(temp)
     collection_data.sector_times = sector_times[::-1]
+    collection_data.total_time = sum(sector_times)
+
+
+def get_sector_difficulties(pattern_ref: int):
+    start = [0, 100]
+    sector_points = [start]
+    sector_difficulties = []
+    curr.execute("SELECT sectorNo, patternX, patternY "
+                 "FROM fittssectorid "
+                 "WHERE patternRef = {0}".format(pattern_ref))
+
+    for row in curr:
+        sector_points.append([row[1], row[2]])
+
+    for i in range(0, len(sector_points) - 1):
+        sector_distance = math.hypot(sector_points[i + 1][0] - sector_points[i][0],
+                                     sector_points[i + 1][1] - sector_points[i][1])
+
+        sector_difficulties.append(math.log2((2 * sector_distance) / (2 * tolerance_radius)))
+
+    return sector_difficulties
+
+
+def get_sequence_sad(sequence_data: SequenceCollection):
+    curr.execute("SELECT FSStdErr, TotalSAD "
+                 "FROM collectionpattern "
+                 "WHERE collectionRef = {0} "
+                 "AND sequenceNo = {1}".format(sequence_data.collection_ref, sequence_data.sequence_ref))
+    for row in curr:
+        sequence_data.total_sad = row[1]
+    return

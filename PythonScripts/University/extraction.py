@@ -1,6 +1,6 @@
 import csv
 import os
-from University.data_extraction import *
+from University.data_extractionv2 import *
 
 
 def write_to_csv(file_name: str, collection: list):

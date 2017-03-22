@@ -33,7 +33,9 @@ def pattern_facade(pattern_ref: int, invalid_sectors: bool):
     pattern_non_d = get_collection_data(pattern_ref, 'N', 'D')
     pattern_dom_n = get_collection_data(pattern_ref, 'Y', 'ND')
     pattern_non_n = get_collection_data(pattern_ref, 'N', 'ND')
-    pattern_data = [pattern_dom_d, pattern_non_d, pattern_dom_n, pattern_non_n]
+    pattern_dom_p = get_collection_data(pattern_ref, 'Y', 'PD')
+    pattern_non_p = get_collection_data(pattern_ref, 'N', 'PD')
+    pattern_data = [pattern_dom_d, pattern_non_d, pattern_dom_n, pattern_non_n, pattern_dom_p, pattern_non_p]
 
     pattern_sector_ids = get_sector_difficulties(pattern_ref)
 
@@ -47,14 +49,16 @@ def pattern_facade(pattern_ref: int, invalid_sectors: bool):
             get_sector_times(sequence)
             sequence.calculate_sector_ips(pattern_sector_ids)
             get_sequence_sad(sequence)
+
     return pattern_data
 
 
 pattern_3_data = pattern_facade(3, True)
-
 pattern_4_data = pattern_facade(4, True)
 
-write("d_ndom_3_com.csv", pattern_3_data[1])
-write("d_ndom_4_com.csv", pattern_4_data[1])
-write("n_ndom_3_com.csv", pattern_3_data[3])
-write("n_ndom_4_com.csv", pattern_4_data[3])
+write("d_non_3_com.csv", pattern_3_data[1])
+write("d_non_4_com.csv", pattern_4_data[1])
+write("n_non_3_com.csv", pattern_3_data[3])
+write("n_non_4_com.csv", pattern_4_data[3])
+write("p_non_3_com.csv", pattern_3_data[5])
+write("p_non_4_com.csv", pattern_4_data[5])

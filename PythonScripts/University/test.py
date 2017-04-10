@@ -12,12 +12,16 @@ def write(file_name, data_list):
         c_writer = csv.writer(csvFile)
 
         for seq in data_list:
-            temp = []
-            for i in range(1, seq.number_of_sectors + 1):
-                if i in seq.valid_sectors:
-                    temp.append(i)
-                else:
-                    temp.append('')
+            temp = seq.sector_times
+
+        # for seq in data_list:
+        #     temp = []
+        #     for i in range(1, seq.number_of_sectors + 1):
+        #         if i in seq.valid_sectors:
+        #             temp.append(i)
+        #         else:
+        #             temp.append('')
+
             c_writer.writerow(temp)
     csvFile.close()
     return
@@ -53,12 +57,12 @@ def pattern_facade(pattern_ref: int, invalid_sectors: bool):
     return pattern_data
 
 
-pattern_3_data = pattern_facade(3, True)
-pattern_4_data = pattern_facade(4, True)
+pattern_3_data = pattern_facade(3, False)
+pattern_4_data = pattern_facade(4, False)
 
-write("d_non_3_com.csv", pattern_3_data[1])
-write("d_non_4_com.csv", pattern_4_data[1])
-write("n_non_3_com.csv", pattern_3_data[3])
-write("n_non_4_com.csv", pattern_4_data[3])
-write("p_non_3_com.csv", pattern_3_data[5])
-write("p_non_4_com.csv", pattern_4_data[5])
+write("d_dom_3_all_times.csv", pattern_3_data[0])
+write("d_dom_4_all_times.csv", pattern_4_data[0])
+write("n_dom_3_all_times.csv", pattern_3_data[2])
+write("n_dom_4_all_times.csv", pattern_4_data[2])
+write("p_dom_3_all_times.csv", pattern_3_data[4])
+write("p_dom_4_all_times.csv", pattern_4_data[4])

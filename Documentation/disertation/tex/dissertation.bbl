@@ -1,17 +1,414 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{}
 
-\bibitem{BritishDyslexiaAssociation}
-{British Dyslexia Association}, ``{Frequently Asked Questions | British
-  Dyslexia Association}.''
+\bibitem [\protect \citeauthoryear {%
+{British Dyslexia Association}%
+}{%
+{British Dyslexia Association}%
+}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+}]{%
+BritishDyslexiaAssociation}
+\APACinsertmetastar {%
+BritishDyslexiaAssociation}%
+\begin{APACrefauthors}%
+{British Dyslexia Association}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
+\newblock
+\APACrefbtitle {{Frequently Asked Questions | British Dyslexia Association}.}
+  {{Frequently Asked Questions | British Dyslexia Association}.}
+\newblock
+\begin{APACrefURL}
+  \url{http://www.bdadyslexia.org.uk/parent/frequently-asked-questions}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
 
-\bibitem{NHSChoices}
-{NHS Choices}, ``{Dyslexia - NHS Choices}.''
+\bibitem [\protect \citeauthoryear {%
+{British Dyslexia Association}%
+}{%
+{British Dyslexia Association}%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+BritishDyslexiaAssociation2016}
+\APACinsertmetastar {%
+BritishDyslexiaAssociation2016}%
+\begin{APACrefauthors}%
+{British Dyslexia Association}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+\APACrefbtitle {{About the British Dyslexia Association | British Dyslexia
+  Association}.} {{About the British Dyslexia Association | British Dyslexia
+  Association}.}
+\newblock
+\begin{APACrefURL} \url{http://www.bdadyslexia.org.uk/about} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
 
-\bibitem{BritishDyslexiaAssociation2016}
-{British Dyslexia Association}, ``{About the British Dyslexia Association |
-  British Dyslexia Association},'' 2016.
+\bibitem [\protect \citeauthoryear {%
+Card%
+, English%
+\BCBL {}\ \BBA {} Burr%
+}{%
+Card%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1978}}%
+}]{%
+Card1978}
+\APACinsertmetastar {%
+Card1978}%
+\begin{APACrefauthors}%
+Card, S\BPBI K.%
+, English, W\BPBI K.%
+\BCBL {}\ \BBA {} Burr, B\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1978}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Evaluation of Mouse, Rate-Controlled Isometric
+  Joystick, Step Keys, and Text Keys for Text Selection on a CRT}} {{Evaluation
+  of Mouse, Rate-Controlled Isometric Joystick, Step Keys, and Text Keys for
+  Text Selection on a CRT}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Ergonomics}{21}{8}{601--613}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/00140137808931762} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\bibitem{NHSChoicesa}
-{NHS Choices}, ``{Dyslexia - Diagnosis - NHS Choices}.''
+\bibitem [\protect \citeauthoryear {%
+Fitts%
+}{%
+Fitts%
+}{%
+{\protect \APACyear {1954}}%
+}]{%
+Fitts1954}
+\APACinsertmetastar {%
+Fitts1954}%
+\begin{APACrefauthors}%
+Fitts, P\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1954}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The information capacity of the human motor system in
+  controlling the amplitude of movement.}} {{The information capacity of the
+  human motor system in controlling the amplitude of movement.}}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Experimental Psychology}{47}{6}{381--391}.
+\newblock
+\begin{APACrefDOI} \doi{10.1037/h0055392} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ifft%
+, Lebedev%
+\BCBL {}\ \BBA {} Nicolelis%
+}{%
+Ifft%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+Ifft2011}
+\APACinsertmetastar {%
+Ifft2011}%
+\begin{APACrefauthors}%
+Ifft, P\BPBI J.%
+, Lebedev, M\BPBI a.%
+\BCBL {}\ \BBA {} Nicolelis, M\BPBI a\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Cortical correlates of fitts' law.}} {{Cortical
+  correlates of fitts' law.}}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Frontiers in integrative
+  neuroscience}{5}{December}{85}.
+\newblock
+\begin{APACrefURL}
+  \url{http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3250970&tool=pmcentrez&rendertype=abstract}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.3389/fnint.2011.00085} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Mackenzie%
+\ \BBA {} Scott%
+}{%
+Mackenzie%
+\ \BBA {} Scott%
+}{%
+{\protect \APACyear {1992}}%
+}]{%
+MacKenzie1992}
+\APACinsertmetastar {%
+MacKenzie1992}%
+\begin{APACrefauthors}%
+Mackenzie%
+\BCBT {}\ \BBA {} Scott, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1992}.
+\unskip\
+\newblock
+\APACrefbtitle {{Fitts' law as a performance model in human-computer
+  interaction}} {{Fitts' law as a performance model in human-computer
+  interaction}}\ \APACtypeAddressSchool {\BPhD}{}{}.
+\unskip\
+\newblock
+\begin{APACrefURL} \url{http://www.yorku.ca/mack/phd.html} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+MacKenzie%
+}{%
+MacKenzie%
+}{%
+{\protect \APACyear {1995}}%
+}]{%
+MacKenzie1995}
+\APACinsertmetastar {%
+MacKenzie1995}%
+\begin{APACrefauthors}%
+MacKenzie, I\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Movement Time Prediction in Human-Computer Interfaces}}
+  {{Movement Time Prediction in Human-Computer Interfaces}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Readings in human-computer interaction}{}{}{483--493}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Maruff%
+\ \BBA {} Velakoulis%
+}{%
+Maruff%
+\ \BBA {} Velakoulis%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+Maruff2000}
+\APACinsertmetastar {%
+Maruff2000}%
+\begin{APACrefauthors}%
+Maruff, P.%
+\BCBT {}\ \BBA {} Velakoulis, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The voluntary control of motor imagery. Imagined
+  movements in individuals with feigned motor impairment and conversion
+  disorder}} {{The voluntary control of motor imagery. Imagined movements in
+  individuals with feigned motor impairment and conversion disorder}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Neuropsychologia}{38}{9}{1251--1260}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/S0028-3932(00)00031-2} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{NHS Choices}%
+}{%
+{NHS Choices}%
+}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+{\protect \APACexlab {{\protect \BCntND {1}}}}}]{%
+NHSChoices}
+\APACinsertmetastar {%
+NHSChoices}%
+\begin{APACrefauthors}%
+{NHS Choices}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}{\protect \BCntND {1}}}{}{}.
+\newblock
+\APACrefbtitle {{Dyslexia - Diagnosis - NHS Choices}.} {{Dyslexia - Diagnosis -
+  NHS Choices}.}
+\newblock
+\APACaddressPublisher{}{Department of Health}.
+\newblock
+\begin{APACrefURL}
+  [{2017-04-11}]\url{http://www.nhs.uk/Conditions/Dyslexia/Pages/Diagnosis.aspx}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{NHS Choices}%
+}{%
+{NHS Choices}%
+}{%
+{\protect \APACyear {{\protect \bibnodate {}}}}%
+{\protect \APACexlab {{\protect \BCntND {2}}}}}]{%
+NHSChoicesa}
+\APACinsertmetastar {%
+NHSChoicesa}%
+\begin{APACrefauthors}%
+{NHS Choices}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{{\protect \bibnodate {}}{\protect \BCntND {2}}}{}{}.
+\newblock
+\APACrefbtitle {{Dyslexia - NHS Choices}.} {{Dyslexia - NHS Choices}.}
+\newblock
+\APACaddressPublisher{}{Department of Health}.
+\newblock
+\begin{APACrefURL}
+  [{2017-04-11}]\url{http://www.nhs.uk/conditions/Dyslexia/Pages/Introduction.aspx}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Piotrowska%
+, Willis%
+, Maclean%
+, Murray%
+\BCBL {}\ \BBA {} Kerridge%
+}{%
+Piotrowska%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2015}}%
+}]{%
+Piotrowska2015}
+\APACinsertmetastar {%
+Piotrowska2015}%
+\begin{APACrefauthors}%
+Piotrowska, M\BPBI B.%
+, Willis, A.%
+, Maclean, R.%
+, Murray, J.%
+\BCBL {}\ \BBA {} Kerridge, P\BPBI J\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Visual-Spatial-Motor Integration in a Cross-Section of
+  Primary-Aged Children : Implications for Assessing Risk of Dyslexia}}
+  {{Visual-Spatial-Motor Integration in a Cross-Section of Primary-Aged
+  Children : Implications for Assessing Risk of Dyslexia}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{}{05}{AUGUST}{443414}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Smits-Engelsman%
+, Wilson%
+, Westenberg%
+\BCBL {}\ \BBA {} Duysens%
+}{%
+Smits-Engelsman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+Smits-Engelsman2003}
+\APACinsertmetastar {%
+Smits-Engelsman2003}%
+\begin{APACrefauthors}%
+Smits-Engelsman, B\BPBI C\BPBI M.%
+, Wilson, P\BPBI H.%
+, Westenberg, Y.%
+\BCBL {}\ \BBA {} Duysens, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Fine motor deficiencies in children with developmental
+  coordination disorder and learning disabilities: An underlying open-loop
+  control deficit}} {{Fine motor deficiencies in children with developmental
+  coordination disorder and learning disabilities: An underlying open-loop
+  control deficit}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Human Movement Science}{22}{4-5}{495--513}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.humov.2003.09.006} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Willis%
+, Piotrowska%
+, Bannach-brown%
+, Maclean%
+\BCBL {}\ \BBA {} Kerridge%
+}{%
+Willis%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+Willis2010}
+\APACinsertmetastar {%
+Willis2010}%
+\begin{APACrefauthors}%
+Willis, A.%
+, Piotrowska, M\BPBI B.%
+, Bannach-brown, M\BPBI A.%
+, Maclean, R.%
+\BCBL {}\ \BBA {} Kerridge, P\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Performance on a tablet-based visual-spatial-motor task
+  is compromised in adults and children with dyslexia : implications for the
+  development of a novel screening tool . The Dot-to-Dot Task}} {{Performance
+  on a tablet-based visual-spatial-motor task is compromised in adults and
+  children with dyslexia : implications for the development of a novel
+  screening tool . The Dot-to-Dot Task}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{}{}{2003}{3181}.
+\newblock
+\begin{APACrefDOI} \doi{10.13140/2.1.4607.8723} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wilson%
+, Maruff%
+, Ives%
+\BCBL {}\ \BBA {} Currie%
+}{%
+Wilson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2001}}%
+}]{%
+Wilson2001}
+\APACinsertmetastar {%
+Wilson2001}%
+\begin{APACrefauthors}%
+Wilson, P\BPBI H.%
+, Maruff, P.%
+, Ives, S.%
+\BCBL {}\ \BBA {} Currie, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Abnormalities of motor and praxis imagery in children
+  with DCD}} {{Abnormalities of motor and praxis imagery in children with
+  DCD}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Human Movement Science}{20}{1-2}{135--159}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/S0167-9457(01)00032-X} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}

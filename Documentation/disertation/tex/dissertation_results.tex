@@ -1,2 +1,44 @@
-\section{Results and Evaluation}
-	\texttt{What was discovered - is it valid / accurate}
+\section{Analysis and Results}
+	\subsection{Statistical Analysis of Index of Performance}
+		With the average IP of each group calculated, analysis and comparison of the results could  commence. Individually the IPs reveal very little of interest, as the goal of this project is to compare two populations of results (Dyslexic and non-Dyslexic) and to determine if there is a significant differentiating trait between them.
+
+		The average IP for Dyslexic and non-Dyslexic task participants is extremely similar even when sectors in which errors occurred are included in the mean. With the largest differences being X and Y, blah bla bla
+
+		While the overall averages of the populations may be similar, this does not mean that the populations are statistically similar. There exists a number of methods for the measurement of statistical similarities between populations, including t-tests, f-tests and Analysis of Variance (ANOVA).
+
+		For the analysis of the Dyslexic and Non-Dyslexic IPs, a two sample t-test of unequal variance (sometimes referred to as a Welch test)  was chosen. The Welch test was chosen for a number of reasons, namely that only two data sets are being compared, the two data sets are completely unrelated and the number of members in each population are uneven. If comparison of the possibly Dyslexic group was also being considered then an f-test would be more appropriate. However, it is assumed that the possibly Dyslexic population consisted of a mixture of both Dyslexic and non-Dyslexic members, meaning any statistical analysis of said group would be inconclusive.
+
+		In order to perform a proper statistical analysis, two variables must first be created: a null hypothesis and a p-value. A null hypothesis is the formal statement of what is being tested. In the case of this project, the following null hypothesis was defined,
+		‘Dyslexic and non-Dyslexic produce similar Indices of Performance for the Dot-to-Dot Task.’
+		The p value is a pre-determined value that the result of the statistical analysis results is compared against. For the following analysis a p value of 0.05 is assumed. To summarise, if statistical analysis produces a value lesser than the p value ($\leq$ 0.05), then the null hypothesis has been disproven and is rejected. If the resulting value is greater than the p value ($\geq$ 0.05), then the null hypothesis has not been disproven.
+
+		A t-test compares the averages of two populations and returns a t-value as a result. The t-value represents the probability of the two groups having significant differences from one  another. 
+
+		[t-test results]
+		It was found that none of the t-values for any pattern or any sector were lower than the predetermined p value. This was the case across all sectors of both pattern 3 and 4, as well as dominant and non-dominant hands. This infers that the previously stated null hypothesis is correct. 
+
+		It was considered a possibility that the reason no sector highlighted itself as a key indicator was because of the removal of IDs with errors. With this in mind, the t-tests were run again - this time with the inclusion of previously ignored sectors, in which individuals had made errors.
+
+		[Results]
+
+		Again, it was found that no sector of either pattern was a t-value lower than the p-value produced. This, again, would indicate that the null hypothesis is once again a true and valid statement.
+		It should be noted that while the results of the t-test indicate that IP and thus Fitts’s Law are not a valid metric for the identification of Dyslexia, the manner of performing the analysis was atypical of the the more usual Fitts’s Analysis experiment.
+
+	\subsubsection{Error Analysis}
+		The original proposal of this project suggested that sectors in which errors occurred would be ignored. However, upon performing statistical analysis, this decision was reconsidered.
+		
+		When the average number of errors for each sector in each population is considered - Dyslexic and non-Dyslexic - they appear to to be relatively similar, baring sector X of pattern 3 and Sector Y of pattern 4.
+		
+		[results]
+		
+		It appears that Dyslexic task participants are significantly more likely to make an error (such as lifting, looping or pausing) in pattern 3 sector X and pattern 4 sector Y. It is clear that ID alone is the cause for this discrepancy, as the difficulty of each of these movements is only marginally larger than other sectors in the patterns and yet the rate of errors is noticeably higher.
+		
+		DYSLEXIC PARTICIPANT ERROR PERCENTAGE.
+		
+		A potential cause for the high error rate in these sectors may be due to the angle required to draw the line. However, this hypothesis is also somewhat unlikely due the fact that sectors of similar angles are also present in the patterns that do not share the same inconsistencies in error rate. 
+		
+		It is possible that the increase in error rate is related to the angle of previous movement. It appears that there is a higher error rate in sectors where there is a drastic change in angle from the previous sector. This is exemplified in pattern 4, where sectors 4, 5, and 6 form a gentle curve, followed by the steep angle of sector 7.
+		
+	\subsection{Analysis Summary}
+		The analysis of results indicates that Fitts’s Law analysis of Dot-to-Dot Task results will not provide any meaningful data in regards to differentiation of Dyslexic and non-Dyslexic task participants. While Fitts’s Law may not appear to be an appropriate metric for Dyslexia detection, the analysis process revealed that the amount of errors made by Dyslexic task participants was noticeably larger the non-Dyslexic participants, suggesting that error rate analysis may be a more accurate alternative to Fitts’s Law for the analysis of Dot-to-Dot task results. Unfortunately it was not possible to further investigate the error rate of task participants, due to the limited number of patterns available for the Dot-to-Dot Task. Had error-analysis been considered as a metric during the initial planning stages of the project, a more concise and dedicated effort would have been made to properly collect and analyse the errors committed by task participants.	
+\newpage

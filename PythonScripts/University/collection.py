@@ -4,7 +4,6 @@ from enum import Enum
 
 # Generic parent class for object inheritance.
 class Collection:
-
     # Generic constructor.
     def __init__(self, collection_ref: int, sequence_ref: int, pattern_ref: int):
         self.collection_ref = collection_ref
@@ -26,7 +25,6 @@ class EventType(Enum):
 
 # Object to retain specific details of error events.
 class EventCollection(Collection):
-
     # Constructor.
     def __init__(self, collection_ref: int, sequence_ref: int, pattern_ref: int, event_type: EventType, sector: int):
         Collection.__init__(self, collection_ref, sequence_ref, pattern_ref)
@@ -41,7 +39,6 @@ class EventCollection(Collection):
 
 # Object to hold details of a specific collection sequence.
 class SequenceCollection(Collection):
-
     # Constructor.
     def __init__(self, individual_id: int, collection_ref: int, sequence_ref: int, pattern_ref: int, dominant_hand: str,
                  dyslexia_status: str):
@@ -72,7 +69,6 @@ class SequenceCollection(Collection):
         if event.collection_ref == self.collection_ref \
                 and event.pattern_ref == self.pattern_ref \
                 and event.sequence_ref == self.sequence_ref:
-
             self.events.append(event)
             return
 

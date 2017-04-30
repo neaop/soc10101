@@ -1,3 +1,6 @@
+# Initial testing and experimentation code
+# DEPRECATED
+
 import csv
 import os
 from University.data_extraction import *
@@ -17,7 +20,7 @@ def write_to_csv(file_name: str, collection: list):
             sector_no = 8
         for i in range(2):
             for i in range(sector_no):
-                csv_title.append(i+1)
+                csv_title.append(i + 1)
 
         csv_title.extend(["TotalTime", "AverageTime"])
         c_writer.writerow(csv_title)

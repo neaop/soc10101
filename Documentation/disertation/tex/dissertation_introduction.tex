@@ -1,11 +1,13 @@
 \section{Introduction}
-	\subsection{Background and Context}
+	This Chapter aims to provide context and reasoning for the execution of this project. Excluding the reasons presented below the project also held personal value, as I was assessed and deemed to have Dyslexia at the age of six. Being Dyslexic was a key motivator during the course of the project and it is my hope that the information and conclusions of this dissertation will provide some aid in the future of Dyslexia and Learning Difficulty assessment and mitigation.
+	\subsection{Background}
+		Provided is context of the major areas of interest that comprise this project, namely; Dyslexia, the Dot-to-Dot Task and Fitts's Law.
 		\subsubsection{Dyslexia}
 			Dyslexia is the most common Learning Difficulty in Britain \cite{BritishDyslexiaAssociation, NHSChoices}, it is present in around 10\% of the British population, to varying degrees from person to person, and about 4\% of the population have severe Dyslexia . Dyslexia typically affects a person's ability to read, with traits such as difficulty with spelling, slow reading speed, issues ‘sounding-out’ syllables, or writing abilities.
 			
 			While Dyslexia cannot be cured, the ways in which it affects an individual can be mitigated, typically in the form of learning support provided by schools and the utilisation of specific teaching and learning techniques \cite{BritishDyslexiaAssociation2016}.
 			
-			While the understanding and acceptance of Dyslexia has improved greatly in recent years, the assessment of whether a person has Dyslexia has remained relatively stagnant. Dyslexia does not have an official, formal assessment funded by the NHS and no mandatory training in regards to Dyslexia is required by NHS staff \cite{NHSChoicesa} . The current and most accurate form of assessment remains in the form of traditional “pen-and-paper” tests \cite{BritishDyslexiaAssociation2016} and while these existing Dyslexia assessments have been proven to be accurate, they typically cannot be taken by children under the age of five, mainly due to the fact that younger children’s reading abilities can develop over time and the reality that individual children experience differing levels of cognitive development \cite{BritishDyslexiaAssociation}.
+			While the understanding and acceptance of Dyslexia has improved greatly in recent years, the assessment of whether a person has Dyslexia has remained relatively stagnant. Dyslexia does not have an official, formal assessment funded by the NHS and no mandatory training in regards to Dyslexia is required by NHS staff \cite{NHSChoicesa} . The current and most accurate form of assessment remains in the form of traditional “pen-and-paper” tests and while these existing Dyslexia assessments have been proven to be accurate, they typically cannot be taken by children under the age of five, mainly due to the fact that younger children’s reading abilities can develop over differing periods of time and individual children experience differing levels of cognitive development.
 			
 
 		\subsubsection{Dot-to-Dot Task}
@@ -15,23 +17,30 @@
 	
 			The Dot-to-Dot Task records a number of variables while in use, including the amount of time taken to draw a line from one point to another, the number of errors a user makes (for example, lifting the stylus, pausing, or drawing a loop) and the difference between the drawn line and the optimal line.
 	
-			Historically, motor abilities were not often considered a skill affected by Dyslexia (reference), but the spectrum of affected areas and the severity thereof varies greatly from individual to individual and is often extremely prominent at younger ages (reference).
+			Historically, motor abilities were not often considered a skill affected by Dyslexia, but the spectrum of affected areas and the severity thereof varies greatly from individual to individual and is often extremely prominent at younger ages.
 		
 		\subsubsection{Fitts's Law}
 			Fitts’s Law is a form of modelling used to predict the movement time required for a user to move between targets on computer User Interface (UI) \cite{MacKenzie1992, MacKenzie1995}. Paul Fitts (1912 - 1965) originally proposed the idea for Fitts’s Law in a 1954 paper entitled "The information capacity of the human motor system in controlling the amplitude of movement." \cite{Fitts1954} and this metric is still considered valid and is well used, especially in the fields of Human Computer Interaction (HCI) and software ergonomics.
 
 			Fitts’s Law has been reviewed and discussed extensively since its inception, with a number of revisions and alternative equations being presented with compelling arguments for their usability and suitability \cite{MacKenzie1992, MacKenzie1995}. The original Fitts’s Law equation is presented thusly,
 
-			\[IP = \left(\frac{IP}{ID}\right)\]
+			\[IP = \left(\frac{ID}{MT}\right)\]
+		
+			\(IP\), or Index of Performance is the measure of how a individual executed a movement between two points. Fitts calculates \(IP\) simply as the Index of Difficulty of a sector (\(ID\)) divided by the time taken to complete said sector (Movement Time or \(MT\)).
+			
 			\[ID = \log_2\left( \frac{2D}{W}\right)\]
 			
-			As previously stated, Fitts’s Law is used to calculate the potential time it would require to move between UI targets. Typical targets might consist of text boxes, buttons and checkboxes. Fitts’s Law is not only used for prediction, but also for evaluation. Fitts’s Law can return an Index of Performance (IP) which is calculated in the time required for a user to move from one target to another and the Index of Difficulty (ID) of said move \cite{Fitts1954}.  The ID of a movement can be calculated based on the distance between each point and the size of end target.
+			\(ID\) or Index of Difficulty is the estimation of how difficult a movement between two point is. The parameters required for its calculation being; the distance between the two points (\(D\)) and the Width of the target being moved towards (\(W\)).
+			
+			The larger the \(ID\) of a movement, the harder the move is to execute, either due to the distance between the two targets, the size of end target, or some combination of both. for \(IP\) the smaller the value, the faster the movement was executed, indicating a superior performance. 
+			
+			As previously stated, Fitts’s Law is used to calculate the potential time it would require to move between UI targets. Typical targets might consist of text boxes, buttons and checkboxes. Fitts’s Law is not only used for prediction, but also for evaluation. Fitts’s Law can return an Index of Performance (\(IP\)) which is calculated in the time required for a user to move from one target to another and the Index of Difficulty (\(ID\)) of said move \cite{Fitts1954}.  The \(ID\) of a movement can be calculated based on the distance between each point and the size of end target.
 
 			Fitts’s Law presents itself as a fitting metric for the analysis of Dot-to-Dot Task results for a number of reasons. The task itself consists of the tracing of straight lines between points  - movements which Fitts’s Law can calculate the difficulty and execution of. The Dot-to-Dot Task already records the time taken by participants to complete movements, which allows Fitts’s analysis to be applied to results without needing to alter the existing system.
 
 			Applications utilising Fitts’s Law have previously been used to attempt the identification of a number of disorders in children - for example, Cognitive Development Disorder (CDD) and Developmental Coordination Disorder (CDC). The fact that Fitts’s Law has been used previously for the identification of Learning Difficulties in children does present itself somewhat as a ‘double edged sword’, in the sense that it raises the question: has Fitts’s Law not been used for the detection of Dyslexia because it is potentially fallible or because it is not well known outside of the HCI community?
 		
-		\subsubsection{Aims and Goals}
+		\subsection{Aims and Goals}
 			The main aim of this project is to determine whether the use of Fitts’s Law analysis is  suitable for the identification of Dyslexia in children, but there are a number of caveats that must be addressed to ensure accurate and fair analysis and evaluation of this project. 
 		
 			One of the primary concerns of the project is the fact that it consists of applying a new form of analysis to a pre-existing system. Traditionally, experiments investigating Fitts’s Law consist of participants drawing straight lines between two points, each subsequent stage of the test altering the given parameters in some way, then increasing the distance between the two targets, or altering the size of the end target. The Dot-to-Dot Task on the other hand, consists of drawing lines between a series of targets of equal size and while the length of each line is relatively similar, the angles of each sector can vary greatly. While Fitts’s Law analysis can be applied to to the Dot-to-Dot Task, it may not produce the expected results, due to the similarity of the lines being drawn by the participants.
@@ -44,13 +53,13 @@
 			}Dot-to-Dot Task data must be collected from participants that are aware of their Dyslexia status. This provides evidence that Fitts’s Law analysis can correctly discriminate between Dyslexic and non-Dyslexic Dot-to-Dot Task participants. If the originally collected primary school data were to be used, there would be no way to prove if an individual was actually Dyslexic, despite having been identified as such through Fitts’s Law analysis.
 			
 			\textbf{Calculate the Index of Difficulty for each sector of the Dot-to-Dot Task.}
-			To perform Fitts’s Law analysis, two pieces of data must be known: the ID of a movement and the amount of time a participant needs to make this move. With the movement times being provided by task participants, only the ID of the sector remains uncalculated. To calculate the ID, both the the size of targets and the distance between them must be known. The Dot-to-Dot Task records all the targets as dots with a radius of ten pixels, giving each target a width of twenty pixels. The X and Y coordinates of each target are also recorded and from this data the lengths of the lines being drawn can be extrapolated.
+			To perform Fitts’s Law analysis, two pieces of data must be known: the \(ID\) of a movement and the amount of time a participant needs to make this move. With the movement times being provided by task participants, only the \(ID\) of the sector remains uncalculated. To calculate the \(ID\), both the the size of targets and the distance between them must be known. The Dot-to-Dot Task records all the targets as dots with a radius of ten pixels, giving each target a width of twenty pixels. The X and Y coordinates of each target are also recorded and from this data the lengths of the lines being drawn can be extrapolated.
 			
 			\textbf{Calculate each individual's Index of Performance for each sector.}
-			With both the ID and Movement Time (MT) of each sector known, the IP can be calculated, the result of which being the crux of this project. The smaller the value of the IP, the more efficient a movement was performed. The hypothesis of this project is that Dyslexic participants would produce an IP significantly different from non-Dyslexic participants, most likely of a higher value.
+			With both the \(ID\) and Movement Time (\(MT\)) of each sector known, the \(IP\) can be calculated, the result of which being the crux of this project. The smaller the value of the \(IP\), the more efficient a movement was performed. The hypothesis of this project is that Dyslexic participants would produce an \(IP\) significantly different from non-Dyslexic participants, most likely of a higher value.
 			
 			\textbf{Analyse Fitts’s Law results of the different groups to identify distinct patterns or traits.}
-			Once the IP has been calculated for every sector that a participant completed, analyses of effectiveness can begin. A standard method of evaluating whether two populations of results are significantly different is via the use of a Student t-test. In the scenario of this project, the two populations will be the Dyslexic and non-Dyslexic Dot-to-Dot Task participants.
+			Once the \(IP\) has been calculated for every sector that a participant completed, analyses of effectiveness can begin. A standard method of evaluating whether two populations of results are significantly different is via the use of a Student t-test. In the scenario of this project, the two populations will be the Dyslexic and non-Dyslexic Dot-to-Dot Task participants.
 			
 			\textbf{Evaluate Fitts’s Law effectiveness in terms of discerning between Dyslexic and non-Dyslexic Dot-to-Dot Task participants.}
 			Upon completion of t-test analysis, the only remaining goal is to determine whether Fitts’s Law can be deemed a suitable identifier of Dyslexia when used to analyse Dot-to-Dot Task results. It may be the case that Fitts’s Law is only able to identify partial groups of Dyslexic participants, or it may highlight key sectors of the Dot-to-Dot Task patterns that Dyslexic participants have a harder time tracing than their non-Dyslexic counterparts.

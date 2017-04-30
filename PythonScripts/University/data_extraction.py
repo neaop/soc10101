@@ -11,22 +11,25 @@ curr = con.cursor()
 tolerance_radius = 10
 
 
-# Returns a list of all the sectors for a pattern.
+# Returns a list of all the X coordinates of sectors in a pattern.
 def get_pattern_sectors(pattern_ref: int):
+    # Retrive X coordinates for passed pattern.
     curr.execute("SELECT patternX "
                  "FROM fittssectorid "
                  "WHERE patternRef = {0}".format(pattern_ref))
     pattern_sectors = []
+
     for row in curr:
+        # Append coordinates to list.
         pattern_sectors.append(list(row))
     return pattern_sectors
 
 
 # Returns the sectors of a pattern in which an error event occurred.
 def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType):
-    # Get sectors for pattern.
+    # Get sector coordinates.
     pattern_sectors = get_pattern_sectors(pattern_ref)
-
+    # Retrieve error event details.
     query = ("SELECT cp.collectionRef, cp.sequenceNo, cp.patternRef, {0}.xCoord "
              "FROM {0} "
              "JOIN collectionpattern cp "
@@ -38,19 +41,22 @@ def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType)
     event_sectors = []
     for row in curr:
         sector_count = 1
+        # Iterate over sectors in pattern.
         for sector in pattern_sectors:
-            #  Count up sectors till coordinates match.
+            #  Determine if error event occurred in current sector.
             if row[3] > (sector[0] - tolerance_radius):
                 sector_count += 1
+        # Create dedicated event object.
         temp_event = EventCollection(row[0], row[1], row[2], event_type, sector_count)
         event_sectors.append(temp_event)
-
+    # Return events.
     return event_sectors
 
 
 # Return all collection data for individual group - dyslexic, dominant-hand, etc.
 def get_collection_data(pattern_ref: int, dominant_hand: str, dyslexia_status: str):
     collection_data = []
+    # Retrieve demographic data.
     curr.execute("SELECT c.individualRef, cp.collectionRef, cp.sequenceNo, cp.patternRef, cp.dominant,  ds.status "
                  "FROM detailedtiming dt "
                  "JOIN collectionpattern cp "
@@ -63,11 +69,14 @@ def get_collection_data(pattern_ref: int, dominant_hand: str, dyslexia_status: s
                  "WHERE patternRef = {0} "
                  "AND dominant = '{1}' "
                  "AND status = '{2}' ".format(pattern_ref, dominant_hand, dyslexia_status))
+
+    # Iterate over data and create objects.
     for row in curr:
         collection_data.append(SequenceCollection(row[0], row[1], row[2], row[3], row[4], row[5]))
     return collection_data
 
 
+# Append events to relevant collection.
 def add_events_to_collections(collection_list: list, event_list: list):
     for col in collection_list:
         for event_type in event_list:
@@ -76,8 +85,9 @@ def add_events_to_collections(collection_list: list, event_list: list):
     return
 
 
-# Return the movement times for a specific collection.
+# Return the movement times for a specific sequence.
 def get_sector_times(collection_data: SequenceCollection):
+    # Retrieve timings for sequence.
     curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
                  "FROM detailedtiming dt "
                  "JOIN collectionpattern cp "
@@ -85,16 +95,22 @@ def get_sector_times(collection_data: SequenceCollection):
                  "AND dt.sequenceNo = cp.sequenceNo "
                  "WHERE cp.collectionRef = {0} "
                  "AND cp.sequenceNo = {1}".format(collection_data.collection_ref, collection_data.sequence_ref))
+
     sector_times = []
     for row in curr:
+        # Reverse order timings.
         backwards = row[::-1]
         for i in range(8):
+            # Skip empty time - pattern 3.
             if backwards[i] is None:
                 pass
             else:
+                # Append time to list
                 temp = backwards[i] - backwards[i + 1]
                 sector_times.append(temp)
+    # Reorder list.
     collection_data.sector_times = sector_times[::-1]
+    # Update object variable.
     collection_data.total_time = sum(sector_times)
 
 

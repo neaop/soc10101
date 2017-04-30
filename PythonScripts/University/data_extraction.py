@@ -1,13 +1,17 @@
+# Class for extraction of data from MySQL database tables.
 import pymysql
 import math
 from University.collection import *
 
+# Connection information.
 con = pymysql.connect(host='localhost', port=3306, user='candidwebuser', passwd='pw4candid', db='fittsdb')
 curr = con.cursor()
 
+# Radius of target.
 tolerance_radius = 10
 
 
+# Returns a list of all the sectors for a pattern.
 def get_pattern_sectors(pattern_ref: int):
     curr.execute("SELECT patternX "
                  "FROM fittssectorid "
@@ -18,7 +22,9 @@ def get_pattern_sectors(pattern_ref: int):
     return pattern_sectors
 
 
+# Returns the sectors of a pattern in which an error event occurred.
 def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType):
+    # Get sectors for pattern.
     pattern_sectors = get_pattern_sectors(pattern_ref)
 
     query = ("SELECT cp.collectionRef, cp.sequenceNo, cp.patternRef, {0}.xCoord "
@@ -42,6 +48,7 @@ def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType)
     return event_sectors
 
 
+# Return all collection data for individual group - dyslexic, dominant-hand, etc.
 def get_collection_data(pattern_ref: int, dominant_hand: str, dyslexia_status: str):
     collection_data = []
     curr.execute("SELECT c.individualRef, cp.collectionRef, cp.sequenceNo, cp.patternRef, cp.dominant,  ds.status "
@@ -69,6 +76,7 @@ def add_events_to_collections(collection_list: list, event_list: list):
     return
 
 
+# Return the movement times for a specific collection.
 def get_sector_times(collection_data: SequenceCollection):
     curr.execute("SELECT startTime, point0, point1, point2, point3, point4, point5, point6, point7, point8 "
                  "FROM detailedtiming dt "
@@ -90,6 +98,7 @@ def get_sector_times(collection_data: SequenceCollection):
     collection_data.total_time = sum(sector_times)
 
 
+# Calculate the Index of Difficulty for each sector in a pattern.
 def get_sector_difficulties(pattern_ref: int):
     start = [0, 100]
     sector_points = [start]
@@ -110,6 +119,7 @@ def get_sector_difficulties(pattern_ref: int):
     return sector_difficulties
 
 
+# Return SAD for a sequence.
 def get_sequence_sad(sequence_data: SequenceCollection):
     curr.execute("SELECT FSStdErr, TotalSAD "
                  "FROM collectionpattern "

@@ -3,7 +3,7 @@
 
 import csv
 import os
-from University.data_extraction import *
+from UniversityData.data_extraction import *
 
 
 def write_to_csv(file_name: str, collection: list):

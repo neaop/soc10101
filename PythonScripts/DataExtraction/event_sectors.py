@@ -1,4 +1,4 @@
-#  Class for extracting data formDatabase.
+#  Class for extracting data from MySQL database.
 import pymysql
 import math
 
@@ -6,14 +6,15 @@ con = pymysql.connect(host='localhost', port=3306, user='root', passwd='admin', 
 curr = con.cursor()
 
 
-#  Returns a list of sectors with events for a  pattern, from a table.
+#  Returns a list of sectors with error events for a  pattern.
 def get_event_sectors(event_table, pattern_no):
-    tolerance = 10
+    tolerance = 10  # Radius of target.
     event_sectors = []
     pattern_sectors = get_pattern_sectors(pattern_no)
 
-    query = "SELECT collectionref, sequenceNo, patternRef, xCoord FROM %s WHERE patternRef = %s" \
-            % (event_table, pattern_no)
+    query = "SELECT collectionref, sequenceNo, patternRef, xCoord " \
+            "FROM %s " \
+            "WHERE patternRef = %s" % (event_table, pattern_no)
     curr.execute(query)
 
     for row in curr:
@@ -42,7 +43,9 @@ def get_collection_data(pattern: int):
 
 #  Returns a list of coordinates for a particular pattern.
 def get_pattern_sectors(pattern_no):
-    curr.execute("SELECT patternX FROM fittssectorid WHERE patternRef = %s", pattern_no)
+    curr.execute("SELECT patternX "
+                 "FROM fittssectorid "
+                 "WHERE patternRef = %s", pattern_no)
     pattern_sectors = []
     for row in curr:
         pattern_sectors.append(list(row))
@@ -51,8 +54,12 @@ def get_pattern_sectors(pattern_no):
 
 #  Returns a list of the valid sector completion times
 def get_valid_sectors(collection_data: list):
-    curr.execute("SELECT sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8 FROM fittssectortimes WHERE idCollection = %s AND sequenceNo = %s", (collection_data[0], collection_data[1]))
-    sector_times =[]
+    curr.execute(
+        "SELECT sector1, sector2, sector3, sector4, sector5, sector6, sector7, sector8 "
+        "FROM fittssectortimes "
+        "WHERE idCollection = %s AND sequenceNo = %s",
+        (collection_data[0], collection_data[1]))
+    sector_times = []
     count = 1
     for row in curr:
         for val in row:
@@ -64,21 +71,24 @@ def get_valid_sectors(collection_data: list):
         collection_data[4] = sector_times
 
 
-#  Returns a list with the fitts's IDs for a particular pattern.
+# Returns a list with the fitts's IDs for a particular pattern.
 def get_sector_difficulties(pattern: int):
     start = [0, 100]
     sector_points = [start]
     sector_difficulties = []
-    curr.execute("SELECT sectorNo, patternX, patternY FROM fittssectorid WHERE patternRef = %s ", pattern)
+    curr.execute("SELECT sectorNo, patternX, patternY "
+                 "FROM fittssectorid "
+                 "WHERE patternRef = %s ", pattern)
     for row in curr:
         sector_points.append([row[1], row[2]])
 
     # for val in sector_points:
     #     print(val)
 
-    for i in range(0, len(sector_points)-1):
-        sector_distance = math.hypot(sector_points[i+1][0] - sector_points[i][0], sector_points[i+1][1] - sector_points[i][1])
-        sector_difficulties.append([i+1, math.log2((2*sector_distance) / 20)])
+    for i in range(0, len(sector_points) - 1):
+        sector_distance = math.hypot(sector_points[i + 1][0] - sector_points[i][0],
+                                     sector_points[i + 1][1] - sector_points[i][1])
+        sector_difficulties.append([i + 1, math.log2((2 * sector_distance) / 20)])
 
     return sector_difficulties
 

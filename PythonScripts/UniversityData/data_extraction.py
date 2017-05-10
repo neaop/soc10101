@@ -1,7 +1,7 @@
 # Class for extraction of data from MySQL database tables.
 import pymysql
 import math
-from University.collection import *
+from UniversityData.collection import *
 
 # Connection information.
 con = pymysql.connect(host='localhost', port=3306, user='candidwebuser', passwd='pw4candid', db='fittsdb')

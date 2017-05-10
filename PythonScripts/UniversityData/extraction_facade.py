@@ -1,6 +1,6 @@
 import os
 import csv
-from University.data_extraction import *
+from UniversityData.data_extraction import *
 
 
 # Facade class to deal with extraction from database.
@@ -49,33 +49,32 @@ def pattern_facade(pattern_ref: int, invalid_sectors: bool):
 
 
 # Method to write data to csv file.
-if __name__ == '__main__':
-    if __name__ == '__main__':
-        def write_data(file_name, data_list):
-            # Output file directory.
-            dir_path = "..\data"
-            # If output dir doesn't exist - create it.
-            if not os.path.exists(dir_path):
-                os.mkdir(dir_path)
-            # Create new csv file.
-            with open(dir_path + '\\' + file_name, 'w', newline='\n') as csvFile:
-                c_writer = csv.writer(csvFile)
-                # For every sequence.
-                for seq in data_list:
-                    # Append movement time to list.
-                    temp = seq.sector_times
 
-                    # Write list to csv.
-                    c_writer.writerow(temp)
-            csvFile.close()
-            return
+def write_data(file_name, data_list):
+    # Output file directory.
+    dir_path = "..\data"
+    # If output dir doesn't exist - create it.
+    if not os.path.exists(dir_path):
+        os.mkdir(dir_path)
+    # Create new csv file.
+    with open(dir_path + '\\' + file_name, 'w', newline='\n') as csvFile:
+        c_writer = csv.writer(csvFile)
+        # For every sequence.
+        for seq in data_list:
+            # Append movement time to list.
+            temp = seq.sector_times
 
-            # write_data was rewritten depending on the data required
-            # Below is a snippet that was used to write only valid sectors -
-            # for seq in data_list:
-            #     temp = []
-            #     for i in range(1, seq.number_of_sectors + 1):
-            #         if i in seq.valid_sectors:
-            #             temp.append(i)
-            #         else:
-            #             temp.append('')
+            # Write list to csv.
+            c_writer.writerow(temp)
+    csvFile.close()
+    return
+
+    # write_data was rewritten depending on the data required
+    # Below is a snippet that was used to write only valid sectors -
+    # for seq in data_list:
+    #     temp = []
+    #     for i in range(1, seq.number_of_sectors + 1):
+    #         if i in seq.valid_sectors:
+    #             temp.append(i)
+    #         else:
+    #             temp.append('')

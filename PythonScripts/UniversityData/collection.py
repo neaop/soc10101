@@ -30,10 +30,11 @@ class EventCollection(Collection):
         Collection.__init__(self, collection_ref, sequence_ref, pattern_ref)
         self.event_type = event_type
         self.sector = sector
+        self.additional = -1
 
     # String method.
     def __str__(self):
-        string = ("{0}, {1}, {2}".format(Collection.__str__(self), self.event_type.name, self.sector))
+        string = ("{0}, {1}, {2}, {3}".format(Collection.__str__(self), self.event_type.name, self.sector, self.additional))
         return string
 
 
@@ -50,6 +51,7 @@ class SequenceCollection(Collection):
         self.sector_times = []
         self.total_time = -1
         self.total_sad = -1
+        self.first_error = -1
         self.sector_ips = []
         self.average_ip = -1
         self.valid_sectors = []

@@ -29,13 +29,21 @@ def get_pattern_sectors(pattern_ref: int):
 def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType):
     # Get sector coordinates.
     pattern_sectors = get_pattern_sectors(pattern_ref)
+
+    if event_type == EventType.LIFT:
+        addition = "{0}.liftDuration".format(event_table)
+    elif event_type == EventType.STOP:
+        addition = "{0}.stasisDuration".format(event_table)
+    else:
+        addition = "{0}.rangeX, {0}.rangeY".format(event_table)
+
     # Retrieve error event details.
-    query = ("SELECT cp.collectionRef, cp.sequenceNo, cp.patternRef, {0}.xCoord "
+    query = ("SELECT cp.collectionRef, cp.sequenceNo, cp.patternRef, {0}.xCoord , {2} "
              "FROM {0} "
              "JOIN collectionpattern cp "
              "ON {0}.collectionRef = cp.collectionRef "
              "AND {0}.sequenceNo = cp.sequenceNo "
-             "WHERE cp.patternRef = {1}".format(event_table, pattern_ref))
+             "WHERE cp.patternRef = {1}".format(event_table, pattern_ref, addition))
     curr.execute(query)
 
     event_sectors = []
@@ -48,6 +56,12 @@ def get_event_sectors(pattern_ref: int, event_table: str, event_type: EventType)
                 sector_count += 1
         # Create dedicated event object.
         temp_event = EventCollection(row[0], row[1], row[2], event_type, sector_count)
+
+        if event_type == EventType.LOOP:
+            temp_event.additional = [row[4], row[5]]
+        else:
+            temp_event.additional = row[4]
+
         event_sectors.append(temp_event)
     # Return events.
     return event_sectors
@@ -142,5 +156,6 @@ def get_sequence_sad(sequence_data: SequenceCollection):
                  "WHERE collectionRef = {0} "
                  "AND sequenceNo = {1}".format(sequence_data.collection_ref, sequence_data.sequence_ref))
     for row in curr:
+        sequence_data.first_error = row[0]
         sequence_data.total_sad = row[1]
     return
